@@ -12,6 +12,8 @@
 		3EA13A951BEBDA0600E2B70F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA13A931BEBDA0600E2B70F /* Main.storyboard */; };
 		3EA13A971BEBDA0600E2B70F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EA13A961BEBDA0600E2B70F /* Assets.xcassets */; };
 		3EA13A9A1BEBDA0600E2B70F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EA13A981BEBDA0600E2B70F /* LaunchScreen.storyboard */; };
+		3EA13AAD1BEBDA9500E2B70F /* Scribblable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA13AAA1BEBDA9500E2B70F /* Scribblable.swift */; };
+		3EA13AAE1BEBDA9500E2B70F /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA13AAC1BEBDA9500E2B70F /* UIBezierPathExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		3EA13A961BEBDA0600E2B70F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EA13A991BEBDA0600E2B70F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EA13A9B1BEBDA0600E2B70F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EA13AAA1BEBDA9500E2B70F /* Scribblable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scribblable.swift; sourceTree = "<group>"; };
+		3EA13AAC1BEBDA9500E2B70F /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 		3EA13A8E1BEBDA0600E2B70F /* SmoothScribble */ = {
 			isa = PBXGroup;
 			children = (
+				3EA13AA91BEBDA9500E2B70F /* components */,
+				3EA13AAB1BEBDA9500E2B70F /* extensions */,
 				3EA13A8F1BEBDA0600E2B70F /* AppDelegate.swift */,
 				3EA13A911BEBDA0600E2B70F /* ViewController.swift */,
 				3EA13A931BEBDA0600E2B70F /* Main.storyboard */,
@@ -62,6 +68,22 @@
 				3EA13A9B1BEBDA0600E2B70F /* Info.plist */,
 			);
 			path = SmoothScribble;
+			sourceTree = "<group>";
+		};
+		3EA13AA91BEBDA9500E2B70F /* components */ = {
+			isa = PBXGroup;
+			children = (
+				3EA13AAA1BEBDA9500E2B70F /* Scribblable.swift */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		3EA13AAB1BEBDA9500E2B70F /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3EA13AAC1BEBDA9500E2B70F /* UIBezierPathExtension.swift */,
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +159,8 @@
 			files = (
 				3EA13A921BEBDA0600E2B70F /* ViewController.swift in Sources */,
 				3EA13A901BEBDA0600E2B70F /* AppDelegate.swift in Sources */,
+				3EA13AAD1BEBDA9500E2B70F /* Scribblable.swift in Sources */,
+				3EA13AAE1BEBDA9500E2B70F /* UIBezierPathExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
