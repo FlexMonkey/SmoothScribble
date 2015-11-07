@@ -3,9 +3,9 @@
 
 ##### _Companion project to this blog post: http://flexmonkey.blogspot.co.uk/2015/11/smooth-drawing-for-ios-in-swift-with.html_
 
-If you’re creating a drawing or painting app for iOS, you may recall from my recent post discussing coalesced touches a way to increase touch resolution and access intermediate touch locations that may have occurred between touchesMoved invocations. However, if your app simply draws straight lines between each touch location, even the coalesced ones, and your user moves their finger or Pencil quickly, they’ll see their drawing rendered as line sections.
+If you’re creating a drawing or painting app for iOS, you may recall from my recent post discussing coalesced touches a way to increase touch resolution and access intermediate touch locations that may have occurred between `touchesMoved` invocations. However, if your app simply draws straight lines between each touch location, even the coalesced ones, and your user moves their finger or Pencil quickly, they’ll see their drawing rendered as line sections.
 
-There’s a better solution: using a spline interpolation to draw Bezier curves between each touch location and render out a single, continuous curve. I’ve discussed spline interpolation in the past when drawing a curve to pass through all the control points of a Core Image Tone Curve filter and this project borrows that code but repurposes it for a drawing application:.
+There’s a better solution: using a spline interpolation to draw Bezier curves between each touch location and render out a single, continuous curve. I’ve discussed spline interpolation in the past when drawing a curve to pass through all the control points of a Core Image Tone Curve filter and this project borrows that code but repurposes it for a drawing application.
 
 My demo app presents the user with two boxes into either of which they can scribble a drawing, which is mirrored in the other box. The box on the left renders their drawing using spline interpolation and the box on the right with straight lines for touch location to touch location (albeit with coalesced touched). It’s immediately obvious how much nicer the drawing on the left is, appearing as a single curve.
 
