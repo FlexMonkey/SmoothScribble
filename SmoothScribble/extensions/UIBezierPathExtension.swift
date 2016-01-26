@@ -10,58 +10,54 @@ import UIKit
 
 extension UIBezierPath
 {
-    func interpolatePointsWithHermite(interpolationPoints : [CGPoint])
+    func interpolatePointsWithHermite(interpolationPoints : [CGPoint], alpha : CGFloat = 1.0/3.0)
     {
+        guard !interpolationPoints.isEmpty else { return }
+        self.moveToPoint(interpolationPoints[0])
+        
         let n = interpolationPoints.count - 1
-     
-        for var ii = 0; ii < n; ++ii
+        
+        for index in 0..<n
         {
-            var currentPoint = interpolationPoints[ii]
+            var currentPoint = interpolationPoints[index]
+            var nextIndex = (index + 1) % interpolationPoints.count
+            var prevIndex = index == 0 ? interpolationPoints.count - 1 : index - 1
+            var previousPoint = interpolationPoints[prevIndex]
+            var nextPoint = interpolationPoints[nextIndex]
+            let endPoint = nextPoint
+            var mx : CGFloat
+            var my : CGFloat
             
-            if ii == 0
+            if index > 0
             {
-                self.moveToPoint(interpolationPoints[0])
-            }
-            
-            var nextii = (ii + 1) % interpolationPoints.count
-            var previi = (ii - 1 < 0 ? interpolationPoints.count - 1 : ii-1);
-            var previousPoint = interpolationPoints[previi]
-            var nextPoint = interpolationPoints[nextii]
-            let endPoint = nextPoint;
-            var mx : CGFloat = 0.0
-            var my : CGFloat = 0.0
-            
-            if ii > 0
-            {
-                mx = (nextPoint.x - currentPoint.x) * 0.5 + (currentPoint.x - previousPoint.x) * 0.5;
-                my = (nextPoint.y - currentPoint.y) * 0.5 + (currentPoint.y - previousPoint.y) * 0.5;
+                mx = (nextPoint.x - previousPoint.x) / 2.0
+                my = (nextPoint.y - previousPoint.y) / 2.0
             }
             else
             {
-                mx = (nextPoint.x - currentPoint.x) * 0.5;
-                my = (nextPoint.y - currentPoint.y) * 0.5;
+                mx = (nextPoint.x - currentPoint.x) / 2.0
+                my = (nextPoint.y - currentPoint.y) / 2.0
             }
             
-            let controlPoint1 = CGPoint(x: currentPoint.x + mx / 3.0, y: currentPoint.y + my / 3.0)
+            let controlPoint1 = CGPoint(x: currentPoint.x + mx * alpha, y: currentPoint.y + my * alpha)
+            currentPoint = interpolationPoints[nextIndex]
+            nextIndex = (nextIndex + 1) % interpolationPoints.count
+            prevIndex = index
+            previousPoint = interpolationPoints[prevIndex]
+            nextPoint = interpolationPoints[nextIndex]
             
-            currentPoint = interpolationPoints[nextii]
-            nextii = (nextii + 1) % interpolationPoints.count
-            previi = ii;
-            previousPoint = interpolationPoints[previi]
-            nextPoint = interpolationPoints[nextii]
-            
-            if ii < n - 1
+            if index < n - 1
             {
-                mx = (nextPoint.x - currentPoint.x) * 0.5 + (currentPoint.x - previousPoint.x) * 0.5;
-                my = (nextPoint.y - currentPoint.y) * 0.5 + (currentPoint.y - previousPoint.y) * 0.5;
+                mx = (nextPoint.x - previousPoint.x) / 2.0
+                my = (nextPoint.y - previousPoint.y) / 2.0
             }
             else
             {
-                mx = (currentPoint.x - previousPoint.x) * 0.5;
-                my = (currentPoint.y - previousPoint.y) * 0.5;
+                mx = (currentPoint.x - previousPoint.x) / 2.0
+                my = (currentPoint.y - previousPoint.y) / 2.0
             }
             
-            let controlPoint2 = CGPoint(x: currentPoint.x - mx / 3.0, y: currentPoint.y - my / 3.0)
+            let controlPoint2 = CGPoint(x: currentPoint.x - mx * alpha, y: currentPoint.y - my * alpha)
             
             self.addCurveToPoint(endPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
         }
