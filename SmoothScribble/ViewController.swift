@@ -27,10 +27,10 @@ class ViewController: UIViewController
         stackView.addArrangedSubview(simpleScribbleView)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         guard let
-            location = touches.first?.locationInView(self.view) else
+            location = touches.first?.location(in: self.view) else
         {
             return
         }
@@ -49,19 +49,16 @@ class ViewController: UIViewController
             return
         }
         
-        if let adjustedLocationInView = touches.first?.locationInView(touchOrigin)
+        if let adjustedLocationInView = touches.first?.location(in: touchOrigin)
         {
-            hermiteScribbleView.beginScribble(adjustedLocationInView)
-            simpleScribbleView.beginScribble(adjustedLocationInView)
+            hermiteScribbleView.beginScribble(point: adjustedLocationInView)
+            simpleScribbleView.beginScribble(point: adjustedLocationInView)
         }
     }
-    
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?)
-    {
-        guard let
-            touch = touches.first,
-            coalescedTouches = event?.coalescedTouchesForTouch(touch),
-            touchOrigin = touchOrigin
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first,
+            let coalescedTouches = event?.coalescedTouches(for: touch),
+            let touchOrigin = touchOrigin
             else
         {
             return
@@ -69,20 +66,17 @@ class ViewController: UIViewController
         
         coalescedTouches.forEach
             {
-                hermiteScribbleView.appendScribble($0.locationInView(touchOrigin))
-                simpleScribbleView.appendScribble($0.locationInView(touchOrigin))
+                hermiteScribbleView.appendScribble(point: $0.location(in: touchOrigin))
+                simpleScribbleView.appendScribble(point: $0.location(in: touchOrigin))
         }
     }
-    
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?)
-    {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         hermiteScribbleView.endScribble()
         simpleScribbleView.endScribble()
     }
     
-    override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?)
-    {
-        if motion == UIEventSubtype.MotionShake
+    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == UIEventSubtype.motionShake
         {
             hermiteScribbleView.clearScribble()
             simpleScribbleView.clearScribble()
@@ -92,17 +86,17 @@ class ViewController: UIViewController
     override func viewDidLayoutSubviews()
     {
         stackView.frame = CGRect(x: 0,
-            y: topLayoutGuide.length,
-            width: view.frame.width,
-            height: view.frame.height - topLayoutGuide.length).insetBy(dx: 10, dy: 10)
+                                 y: topLayoutGuide.length,
+                                 width: view.frame.width,
+                                 height: view.frame.height - topLayoutGuide.length).insetBy(dx: 10, dy: 10)
         
         stackView.axis = view.frame.width > view.frame.height
-            ? UILayoutConstraintAxis.Horizontal
-            : UILayoutConstraintAxis.Vertical
+            ? UILayoutConstraintAxis.horizontal
+            : UILayoutConstraintAxis.vertical
         
         stackView.spacing = 10
         
-        stackView.distribution = UIStackViewDistribution.FillEqually
+        stackView.distribution = UIStackViewDistribution.fillEqually
     }
 }
 
